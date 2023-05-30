@@ -78,3 +78,14 @@ export const login = async (req: Request, res: Response) => {
     logger.error('login failed', error)
   }
 }
+
+export const me = async (req: Request, res: Response) => {
+  const user = await res.locals.jwt.user
+
+  logger.info('success get user current auth')
+
+  return res.status(200).json({
+    success: true,
+    data: user
+  })
+}

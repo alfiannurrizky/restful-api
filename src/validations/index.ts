@@ -21,3 +21,20 @@ export const userValidation = [
     next()
   }
 ]
+
+export const productValidation = [
+  check('name').notEmpty().withMessage('the name field is required!'),
+  check('price').notEmpty().withMessage('the price field is required!').isInt().withMessage('must be integer'),
+  check('stock').notEmpty().withMessage('the stock field is required!').isInt().withMessage('must be integer'),
+
+  (req: Request, res: Response, next: NextFunction) => {
+    const errors = validationResult(req)
+
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        message: errors.array()
+      })
+    }
+    next()
+  }
+]
